@@ -5,8 +5,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-
+    static int RestaurantCounts;
     static File usersAccounts;
+    public static File restaurants;
 
     public static void main(String[] args) throws IOException {
 
@@ -15,6 +16,7 @@ public class Server {
         ServerSocket serverSocket = new ServerSocket(8335);
 
         usersAccounts = new File("src/Data/usersAccounts.txt");
+        restaurants = new File("src/Data/restaurants.ser");
 
         int cntClient = 0;
 

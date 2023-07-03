@@ -1,7 +1,11 @@
 package server;
 
+import Admin.ReadWrite;
+import Admin.Restaurant;
+
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
 public class ServeSearch extends Thread{
     public Socket socket;
@@ -25,6 +29,7 @@ public class ServeSearch extends Thread{
         while (!socket.isClosed()) {
             try {
                 command = in.readLine().split("/");
+                fileWriter = new PrintWriter(new BufferedWriter(new FileWriter(Server.usersAccounts, true)), true);
                 switch (command[0]) {
                     case "login":
                         out.println(searchUser(command[1], command[2]));
@@ -35,12 +40,24 @@ public class ServeSearch extends Thread{
                             out.println("false");
                         }
                         else {
-                            fileWriter = new PrintWriter(new BufferedWriter(new FileWriter(Server.usersAccounts, true)), true);
                             fileWriter.println(command[1] + "/" + command[2]);
                             fileWriter.close();
                             out.println("true");
                         }
                         break;
+                    case "adminAdd":
+                        System.out.println("admin logged in");
+                        ReadWrite readWrite = new ReadWrite(socket);
+                        readWrite.write();
+                        Server.RestaurantCounts++;
+                        break;
+                    case "adminShow":
+                        System.out.println("zahra goh nakhor");
+//                        out.print(Server.RestaurantCounts);
+                        ReadWrite readWrite1 = new ReadWrite(socket);
+                        for(int i = 0; i < 2; i++) {
+                            System.out.println(readWrite1.read());
+                        }
                 }
             } catch (IOException exception) {
                 System.out.println("client " + clientNumber + " has closed");
