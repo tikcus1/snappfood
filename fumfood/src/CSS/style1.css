@@ -1,0 +1,10 @@
+Button{
+    -fx-background-color: BLACK;
+}
+
+.BackGround{
+    -fx-background-image: url("../images/ghoor2.gif");
+    -fx-background-size: 493 497;
+    -fx-background-position: center center;
+    -fx-background-repeat: stretch;
+}
